@@ -1,5 +1,5 @@
 import { useCart } from '../../hooks/useCart';
-import type { CartItem as CartItemType } from '../../types/cart';
+import type { CartItem as CartItemType } from '../../context/CartContextDefinition';
 import { getFullImageUrl } from '../../config/api';
 
 interface CartItemProps {
@@ -8,22 +8,22 @@ interface CartItemProps {
 
 export default function CartItem({ item }: CartItemProps) {
     const { updateQuantity, removeFromCart } = useCart();
-    const subtotal = item.product.price * item.quantity;
+    const subtotal = item.price * item.quantity;
 
     const handleIncrease = () => {
-        updateQuantity(item.product.id, item.quantity + 1);
+        updateQuantity(item.productId, item.variantId, item.quantity + 1);
     };
 
     const handleDecrease = () => {
         if (item.quantity > 1) {
-            updateQuantity(item.product.id, item.quantity - 1);
+            updateQuantity(item.productId, item.variantId, item.quantity - 1);
         } else {
-            removeFromCart(item.product.id);
+            removeFromCart(item.productId, item.variantId);
         }
     };
 
     const handleRemove = () => {
-        removeFromCart(item.product.id);
+        removeFromCart(item.productId, item.variantId);
     };
 
     return (
@@ -31,15 +31,24 @@ export default function CartItem({ item }: CartItemProps) {
             {/* Imagen y detalles del producto */}
             <div className="d-flex align-items-center">
                 <img
-                    src={getFullImageUrl(item.product.imageUrl)}
+                    src={getFullImageUrl(item.image)}
                     width="80"
-                    className="me-3 rounded"
+                    className="me-3 rounded img-fluid"
                     style={{ objectFit: 'cover', height: '80px' }}
-                    alt={item.product.name}
+                    alt={item.productName}
                 />
                 <div className="flex-grow-1">
-                    <strong>{item.product.name}</strong>
+                    <strong>{item.productName}</strong>
                     <br />
+                    <div className="mt-1">
+                        <span className="badge bg-secondary me-1">
+                            <i className="bi bi-palette me-1"></i>{item.color}
+                        </span>
+                        <span className="badge bg-secondary me-1">
+                            <i className="bi bi-rulers me-1"></i>{item.size}
+                        </span>
+                        <small className="text-muted">SKU: {item.variantSku}</small>
+                    </div>
 
                     {/* Controles de cantidad */}
                     <div className="d-flex align-items-center mt-2">
@@ -67,7 +76,7 @@ export default function CartItem({ item }: CartItemProps) {
                             </button>
                         </div>
                         <small className="text-muted ms-3">
-                            Precio: S/.{item.product.price.toFixed(2)}
+                            Precio: S/.{item.price.toFixed(2)}
                         </small>
                     </div>
                 </div>

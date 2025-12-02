@@ -10,7 +10,7 @@ import type { Product } from '../../types/product';
 export default function Header() {
     const navigate = useNavigate();
     const { categories, loading } = useCategories();
-    const { itemCount } = useCart();
+    const { state } = useCart();
     const { user, isAuthenticated, logout } = useAuth();
     const [showCategories, setShowCategories] = useState(false);
     const [showUserMenu, setShowUserMenu] = useState(false);
@@ -272,7 +272,7 @@ export default function Header() {
                             <span
                                 className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary"
                             >
-                                {itemCount}
+                                {state.itemCount}
                                 <span className="visually-hidden">productos en carrito</span>
                             </span>
                         </Link>

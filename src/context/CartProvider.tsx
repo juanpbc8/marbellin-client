@@ -1,12 +1,11 @@
-import { useEffect, useReducer } from 'react';
+import { useReducer, useEffect, useCallback, useMemo } from 'react';
 import type { ReactNode } from 'react';
-import type { Product, ProductVariant } from '../types/product';
+// Importamos la definición desde el otro archivo
 import { CartContext } from './CartContextDefinition';
 import type { CartItem, CartState } from './CartContextDefinition';
+import type { Product, ProductVariant } from '../types/product';
 
-// Reexportamos para compatibilidad
-export type { CartItem };
-
+// Definimos las acciones del Reducer (internas)
 type CartAction =
     | { type: 'ADD_ITEM'; payload: CartItem }
     | { type: 'REMOVE_ITEM'; payload: { productId: number; variantId: number } }
@@ -20,7 +19,6 @@ const initialState: CartState = {
     itemCount: 0,
 };
 
-// Reducer
 const cartReducer = (state: CartState, action: CartAction): CartState => {
     switch (action.type) {
         case 'ADD_ITEM': {
@@ -73,7 +71,7 @@ const calculateTotals = (items: CartItem[]): CartState => {
     return { items, total, itemCount };
 };
 
-// Provider
+// EXPORTAMOS SOLO EL COMPONENTE
 export const CartProvider = ({ children }: { children: ReactNode }) => {
     const [state, dispatch] = useReducer(cartReducer, initialState);
 
@@ -91,7 +89,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
                 }
             }
         } catch (error) {
-            console.error('Error loading cart from localStorage', error);
+            console.error('Error loading cart', error);
             localStorage.removeItem('marbellin_cart');
         }
     }, []);
@@ -102,11 +100,9 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         }
     }, [state.items]);
 
-    const addToCart = (product: Product, variant: ProductVariant, quantity: number) => {
-        if (!variant || !variant.id) {
-            console.error("Error: Intentando agregar una variante inválida al carrito");
-            return;
-        }
+    // Memoized action functions to prevent infinite loops
+    const addToCart = useCallback((product: Product, variant: ProductVariant, quantity: number) => {
+        if (!variant || !variant.id) return;
 
         const item: CartItem = {
             productId: product.id,
@@ -121,27 +117,33 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         };
 
         dispatch({ type: 'ADD_ITEM', payload: item });
-    };
+    }, []); // dispatch is stable, no dependencies needed
 
-    const removeFromCart = (productId: number, variantId: number) => {
+    const removeFromCart = useCallback((productId: number, variantId: number) => {
         dispatch({ type: 'REMOVE_ITEM', payload: { productId, variantId } });
-    };
+    }, []);
 
-    const updateQuantity = (productId: number, variantId: number, quantity: number) => {
+    const updateQuantity = useCallback((productId: number, variantId: number, quantity: number) => {
         if (quantity <= 0) {
-            removeFromCart(productId, variantId);
+            dispatch({ type: 'REMOVE_ITEM', payload: { productId, variantId } });
         } else {
             dispatch({ type: 'UPDATE_QUANTITY', payload: { productId, variantId, quantity } });
         }
-    };
+    }, []); // Removed removeFromCart from dependencies, use dispatch directly
 
-    const clearCart = () => {
+    const clearCart = useCallback(() => {
         localStorage.removeItem('marbellin_cart');
         dispatch({ type: 'CLEAR_CART' });
-    };
+    }, []);
+
+    // Memoize context value to prevent unnecessary re-renders
+    const contextValue = useMemo(
+        () => ({ state, addToCart, removeFromCart, updateQuantity, clearCart }),
+        [state, addToCart, removeFromCart, updateQuantity, clearCart]
+    );
 
     return (
-        <CartContext.Provider value={{ state, addToCart, removeFromCart, updateQuantity, clearCart }}>
+        <CartContext.Provider value={contextValue}>
             {children}
         </CartContext.Provider>
     );

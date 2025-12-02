@@ -13,7 +13,7 @@ import MercadoPagoButton from '../components/checkout/MercadoPagoButton';
 
 export default function CheckoutPage() {
   const navigate = useNavigate();
-  const { items, total } = useCart();
+  const { state: { items, total } } = useCart();
   const SHIPPING_COST = 15.0;
 
   // Profile and addresses data
@@ -110,7 +110,8 @@ export default function CheckoutPage() {
         deliveryType,
         paymentMethod,
         items: items.map(item => ({
-          productId: item.product.id,
+          productId: item.productId,
+          variantId: item.variantId,
           quantity: item.quantity
         }))
       };
@@ -479,22 +480,30 @@ export default function CheckoutPage() {
                 {/* Items List */}
                 <div className="mb-3">
                   {items.map((item) => (
-                    <div key={item.product.id} className="d-flex align-items-center mb-3 pb-3 border-bottom">
+                    <div key={`${item.productId}-${item.variantId}`} className="d-flex align-items-center mb-3 pb-3 border-bottom">
                       <img
-                        src={getFullImageUrl(item.product.imageUrl)}
-                        alt={item.product.name}
+                        src={getFullImageUrl(item.image)}
+                        alt={item.productName}
                         className="rounded"
                         style={{ width: '60px', height: '60px', objectFit: 'cover' }}
                       />
                       <div className="ms-3 flex-grow-1">
-                        <h6 className="mb-1 small">{item.product.name}</h6>
+                        <h6 className="mb-1 small">{item.productName}</h6>
+                        <div className="d-flex gap-1 mb-1">
+                          <span className="badge bg-light text-dark" style={{ fontSize: '0.65rem' }}>
+                            <i className="bi bi-palette me-1"></i>{item.color}
+                          </span>
+                          <span className="badge bg-light text-dark" style={{ fontSize: '0.65rem' }}>
+                            <i className="bi bi-rulers me-1"></i>{item.size}
+                          </span>
+                        </div>
                         <p className="mb-0 text-muted small">
-                          Cant: {item.quantity} × S/.{item.product.price.toFixed(2)}
+                          Cant: {item.quantity} × S/.{item.price.toFixed(2)}
                         </p>
                       </div>
                       <div className="text-end">
                         <p className="mb-0 fw-bold">
-                          S/.{(item.quantity * item.product.price).toFixed(2)}
+                          S/.{(item.quantity * item.price).toFixed(2)}
                         </p>
                       </div>
                     </div>

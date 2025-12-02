@@ -6,7 +6,8 @@ import CartItem from '../components/cart/CartItem';
 
 export default function CartPage() {
     const navigate = useNavigate();
-    const { items, total, itemCount } = useCart();
+    const { state: { items, total, itemCount } } = useCart();
+
     const { isAuthenticated } = useAuth();
     const [showAuthAlert, setShowAuthAlert] = useState(false);
 
@@ -15,7 +16,6 @@ export default function CartPage() {
             navigate('/checkout');
         } else {
             setShowAuthAlert(true);
-            // Auto-hide alert and navigate to login after 2 seconds
             setTimeout(() => {
                 setShowAuthAlert(false);
                 navigate('/auth/login', { state: { from: { pathname: '/checkout' } } });
@@ -29,7 +29,6 @@ export default function CartPage() {
 
             <div className="card shadow-sm">
                 <div className="card-body">
-                    {/* Empty State */}
                     {items.length === 0 ? (
                         <div className="text-center py-5">
                             <i className="bi bi-cart-x display-1 text-muted"></i>
@@ -41,16 +40,18 @@ export default function CartPage() {
                         </div>
                     ) : (
                         <>
-                            {/* Cart Items List */}
                             <div className="mb-4">
                                 {items.map((item) => (
-                                    <CartItem key={item.product.id} item={item} />
+                                    // CORRECCIÓN 2: Key Única y Compuesta
+                                    // Usamos productId + variantId porque puede haber el mismo producto en diferente color
+                                    <CartItem
+                                        key={`${item.productId}-${item.variantId}`}
+                                        item={item}
+                                    />
                                 ))}
                             </div>
 
-                            {/* Cart Summary */}
                             <div className="text-end mt-4 pt-3 border-top">
-                                {/* Auth Alert */}
                                 {showAuthAlert && (
                                     <div className="alert alert-warning alert-dismissible fade show mb-3" role="alert">
                                         <i className="bi bi-exclamation-triangle-fill me-2"></i>
@@ -86,7 +87,6 @@ export default function CartPage() {
                 </div>
             </div>
 
-            {/* Continue Shopping Button */}
             {items.length > 0 && (
                 <div className="text-center mt-4">
                     <Link to="/shop" className="btn btn-outline-primary">

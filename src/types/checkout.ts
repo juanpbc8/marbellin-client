@@ -15,17 +15,25 @@ import type { DeliveryType } from './order';
 export type PaymentMethod = 'MERCADO_PAGO' | 'PAGO_EFECTIVO';
 
 /**
+ * Checkout Item DTO
+ * Individual item in the checkout request
+ */
+export interface CheckoutItemDto {
+    productId: number;
+    variantId: number;
+    quantity: number;
+}
+
+/**
  * Checkout Request DTO
  * Data sent to POST /api/store/orders
+ * Matches backend CartItemDto from api-docs.json
  */
 export interface CheckoutRequest {
     addressId: number | null;
     deliveryType: DeliveryType;
     paymentMethod: PaymentMethod;
-    items: Array<{
-        productId: number;
-        quantity: number;
-    }>;
+    items: CheckoutItemDto[];
 }
 
 /**

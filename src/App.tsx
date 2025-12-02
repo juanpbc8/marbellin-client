@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
-import { CartProvider } from './context/CartContext';
+import { CartProvider } from './context/CartProvider';
 import MainLayout from './layouts/MainLayout';
 import AccountLayout from './layouts/AccountLayout';
 import ProtectedRoute from './components/ProtectedRoute';
