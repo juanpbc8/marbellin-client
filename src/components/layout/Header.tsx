@@ -371,7 +371,7 @@ export default function Header() {
             </div>
 
             {/* Menú de categorías colapsable */}
-            <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm py-0">
+            <nav className="navbar navbar-expand-lg navbar-light shadow-sm py-0" style={{ backgroundColor: '#FFCBD9' }}>
                 <div className="container">
                     <div className="collapse navbar-collapse" id="menuCategorias">
                         <ul className="navbar-nav mx-auto">

@@ -337,6 +337,10 @@ export default function ProductDetail() {
                             className={`btn btn-lg ${isAdding ? 'btn-success' : 'btn-primary'}`}
                             onClick={handleAddToCart}
                             disabled={!currentVariant || currentVariant.stock === 0 || isAdding}
+                            style={{
+                                backgroundColor: isAdding ? undefined : 'var(--marbellin-heading-color)',
+                                borderColor: isAdding ? undefined : 'var(--marbellin-heading-color)'
+                            }}
                         >
                             {isAdding ? (
                                 <>
@@ -364,6 +368,56 @@ export default function ProductDetail() {
                             <i className="bi bi-lightning-fill me-2"></i>
                             Comprar ahora
                         </button>
+                    </div>
+
+                    {/* Guía de Tallas */}
+                    <div className="mt-4 p-4 rounded-3 shadow-sm" style={{ backgroundColor: '#FFF0F5' }}>
+                        <h5 className="fw-bold mb-3 text-center">
+                            <i className="fas fa-ruler-combined me-2" style={{ color: 'var(--marbellin-heading-color)' }}></i>
+                            Guía de Tallas 📏
+                        </h5>
+                        <div className="table-responsive">
+                            <table className="table table-bordered table-hover mb-0" style={{ backgroundColor: 'white' }}>
+                                <thead style={{ backgroundColor: 'var(--marbellin-heading-color)', color: 'white' }}>
+                                    <tr className="text-center">
+                                        <th scope="col">Talla</th>
+                                        <th scope="col">Busto (cm)</th>
+                                        <th scope="col">Cintura (cm)</th>
+                                        <th scope="col">Cadera (cm)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr className="text-center">
+                                        <td className="fw-bold">S</td>
+                                        <td>80-85</td>
+                                        <td>60-65</td>
+                                        <td>85-90</td>
+                                    </tr>
+                                    <tr className="text-center">
+                                        <td className="fw-bold">M</td>
+                                        <td>86-91</td>
+                                        <td>66-71</td>
+                                        <td>91-96</td>
+                                    </tr>
+                                    <tr className="text-center">
+                                        <td className="fw-bold">L</td>
+                                        <td>92-98</td>
+                                        <td>72-77</td>
+                                        <td>97-102</td>
+                                    </tr>
+                                    <tr className="text-center">
+                                        <td className="fw-bold">XL</td>
+                                        <td>99-105</td>
+                                        <td>78-83</td>
+                                        <td>103-108</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p className="text-center text-muted small mt-3 mb-0">
+                            <i className="fas fa-info-circle me-1"></i>
+                            Las medidas son aproximadas. Si tienes dudas, contáctanos por WhatsApp.
+                        </p>
                     </div>
 
                     {/* Additional Info */}

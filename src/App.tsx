@@ -18,14 +18,12 @@ import AddressesPage from './pages/account/AddressesPage';
 import OrdersPage from './pages/account/OrdersPage';
 import SettingsPage from './pages/account/SettingsPage';
 // Info Pages
-import AboutPage from './pages/info/AboutPage';
-import TermsPage from './pages/info/TermsPage';
-import PrivacyPage from './pages/info/PrivacyPage';
-import ShippingPage from './pages/info/ShippingPage';
-import FaqPage from './pages/info/FaqPage';
-import ClaimsBookPage from './pages/info/ClaimsBookPage';
-import PaymentMethodsPage from './pages/info/PaymentMethodsPage';
-import SupportPage from './pages/info/SupportPage';
+import Nosotros from './pages/info/Nosotros';
+import Terminos from './pages/info/Terminos';
+import PoliticaPrivacidad from './pages/info/PoliticaPrivacidad';
+import CambiosDevoluciones from './pages/info/CambiosDevoluciones';
+import Contacto from './pages/info/Contacto';
+import LibroReclamaciones from './pages/info/LibroReclamaciones';
 
 function App() {
   return (
@@ -45,14 +43,12 @@ function App() {
               <Route path="auth/register" element={<Register />} />
 
               {/* Info Pages */}
-              <Route path="about" element={<AboutPage />} />
-              <Route path="terms" element={<TermsPage />} />
-              <Route path="privacy" element={<PrivacyPage />} />
-              <Route path="shipping" element={<ShippingPage />} />
-              <Route path="faq" element={<FaqPage />} />
-              <Route path="claims" element={<ClaimsBookPage />} />
-              <Route path="payment-methods" element={<PaymentMethodsPage />} />
-              <Route path="support" element={<SupportPage />} />
+              <Route path="nosotros" element={<Nosotros />} />
+              <Route path="terminos" element={<Terminos />} />
+              <Route path="politica-privacidad" element={<PoliticaPrivacidad />} />
+              <Route path="cambios-devoluciones" element={<CambiosDevoluciones />} />
+              <Route path="contacto" element={<Contacto />} />
+              <Route path="libro-reclamaciones" element={<LibroReclamaciones />} />
 
               {/* Protected Account Routes */}
               <Route

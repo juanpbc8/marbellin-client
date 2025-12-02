@@ -1,3 +1,13 @@
+:root {
+  /* Define el color aquí. Puedes cambiarlo cuando quieras */
+  --marbellin-bg-body: #FFF0F5;
+  /* LavenderBlush (Rosa muy suave) */
+  /* --marbellin-bg-body: #f8f9fa;  <-- Opción Gris Claro */
+
+  /* Color rosa fuerte para títulos */
+  --marbellin-heading-color: #d63384;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -18,7 +28,8 @@ body {
   font-size: 16px;
   line-height: 1.6;
   color: #333;
-  background-color: #ffffff;
+  background-color: var(--marbellin-bg-body) !important;
+  min-height: 100vh;
   overflow-x: hidden;
 }
 
@@ -43,3 +54,26 @@ footer {
   flex-shrink: 0;
   width: 100%;
 }
+
+/* ==============================
+   HEADINGS GLOBAL STYLE
+============================== */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--marbellin-heading-color) !important;
+  font-weight: 700;
+}
+
+/* Opcional: Si quieres que los contenedores de contenido sean blancos para contrastar */
+/* .page-content {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  padding: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+} */
