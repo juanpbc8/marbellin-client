@@ -2,11 +2,11 @@ import { useState } from 'react';
 import AccountService from '../../services/account.service';
 
 export default function SettingsPage() {
-    const [notifications, setNotifications] = useState({
-        email: true,
-        promos: true,
-        orders: true,
-    });
+    // const [notifications, setNotifications] = useState({
+    //     email: true,
+    //     promos: true,
+    //     orders: true,
+    // });
 
     const [showPasswordForm, setShowPasswordForm] = useState(false);
     const [passwordData, setPasswordData] = useState({
@@ -17,14 +17,14 @@ export default function SettingsPage() {
     const [error, setError] = useState<string | null>(null);
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-    const handleNotificationChange = (key: keyof typeof notifications) => {
-        setNotifications((prev) => ({
-            ...prev,
-            [key]: !prev[key],
-        }));
-        // TODO: Save notification preferences to backend
-        alert(`Preferencia de notificaciones actualizada (${key})`);
-    };
+    // const handleNotificationChange = (key: keyof typeof notifications) => {
+    //     setNotifications((prev) => ({
+    //         ...prev,
+    //         [key]: !prev[key],
+    //     }));
+    //     // TODO: Save notification preferences to backend
+    //     alert(`Preferencia de notificaciones actualizada (${key})`);
+    // };
 
     const handlePasswordInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -63,13 +63,13 @@ export default function SettingsPage() {
         }
     };
 
-    const handleDeleteAccount = () => {
-        if (
-            confirm('¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.')
-        ) {
-            alert('Función de eliminar cuenta en desarrollo (requiere confirmación adicional)');
-        }
-    };
+    // const handleDeleteAccount = () => {
+    //     if (
+    //         confirm('¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.')
+    //     ) {
+    //         alert('Función de eliminar cuenta en desarrollo (requiere confirmación adicional)');
+    //     }
+    // };
 
     return (
         <section id="configuracion">
@@ -97,7 +97,7 @@ export default function SettingsPage() {
                 <div className="card-body">
                     <div className="row">
                         {/* Notificaciones */}
-                        <div className="col-12 mb-4">
+                        {/* <div className="col-12 mb-4">
                             <h6 className="fw-semibold">Notificaciones</h6>
                             <div className="form-check form-switch mb-2">
                                 <input
@@ -138,7 +138,7 @@ export default function SettingsPage() {
                                     Notificaciones de estado de pedidos
                                 </label>
                             </div>
-                        </div>
+                        </div> */}
 
                         {/* Seguridad */}
                         <div className="col-12 mb-4">
@@ -223,7 +223,7 @@ export default function SettingsPage() {
                         </div>
 
                         {/* Zona de Peligro */}
-                        <div className="col-12">
+                        {/* <div className="col-12">
                             <h6 className="fw-semibold text-danger">Zona de Peligro</h6>
                             <button
                                 className="btn btn-outline-danger w-100"
@@ -232,7 +232,7 @@ export default function SettingsPage() {
                                 <i className="bi bi-trash me-2"></i>
                                 Eliminar Cuenta
                             </button>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
