@@ -147,12 +147,8 @@ export default function Footer() {
                         </ul>
                         <div className="mt-3">
                             <Link to="/libro-reclamaciones">
-                                <img
-                                    src="/assets/icons/icono-libro-reclamaciones.svg"
-                                    alt="Libro de reclamaciones"
-                                    style={{ maxWidth: '120px' }}
-                                    className="img-fluid"
-                                />
+                                <i className="fas fa-chevron-right me-2" style={{ fontSize: '0.7rem', color: 'var(--marbellin-heading-color)' }}></i>
+                                Libro de reclamaciones
                             </Link>
                         </div>
                     </div>
