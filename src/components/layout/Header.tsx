@@ -407,24 +407,31 @@ export default function Header() {
                                 </ul>
                             </li>
 
-                            {/* Preguntas frecuentes */}
+                            {/* Nosotros */}
                             <li className="nav-item">
-                                <Link className="nav-link" to="/faq">
-                                    Preguntas frecuentes
+                                <Link className="nav-link" to="/nosotros">
+                                    Nosotros
+                                </Link>
+                            </li>
+
+                            {/* Contacto */}
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/contacto">
+                                    Contacto
                                 </Link>
                             </li>
 
                             {/* Términos y condiciones */}
                             <li className="nav-item">
-                                <Link className="nav-link" to="/terms">
-                                    Términos y condiciones
+                                <Link className="nav-link" to="/terminos">
+                                    Términos
                                 </Link>
                             </li>
 
                             {/* Política de privacidad */}
                             <li className="nav-item">
-                                <Link className="nav-link" to="/privacy">
-                                    Política de privacidad
+                                <Link className="nav-link" to="/politica-privacidad">
+                                    Privacidad
                                 </Link>
                             </li>
                         </ul>
